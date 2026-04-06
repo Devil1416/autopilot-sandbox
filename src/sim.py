@@ -1,16 +1,11 @@
-import matplotlib.pyplot as plt
+import random
 from .physics import update
-from .sensors import read
 from .controller import control
 
 def run():
-    state = {"alt":0,"vel":0}
-    data = []
-    for _ in range(300):
-        s = read(state)
-        thrust = control(s)
+    state = {'alt': 0, 'vel': 0}
+    for _ in range(200):
+        sensor = {'alt': state['alt'] + random.uniform(-2, 2)}
+        thrust = control(sensor)
         state = update(state, thrust)
-        data.append(state["alt"])
-    plt.plot(data)
-    plt.title("autopilot stabilization")
-    plt.show()
+        print(state)
